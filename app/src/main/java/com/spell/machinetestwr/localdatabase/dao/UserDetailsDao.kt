@@ -15,4 +15,7 @@ interface UserDetailsDao {
     @Query("select * from userDetails")
     suspend fun getAllData():List<UserDetailsModel>
 
+    @Query("select count(*) from userDetails")
+    suspend fun getAllDataCount():Long
+
 }

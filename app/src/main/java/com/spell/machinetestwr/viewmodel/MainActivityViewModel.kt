@@ -22,6 +22,12 @@ class MainActivityViewModel @Inject constructor(
     private val userDetailsModel = MutableLiveData<List<UserDetailsModel>?>()
     var userDetailsLiveData: LiveData<List<UserDetailsModel>?> = userDetailsModel
 
+    private val userDetailsLocalModel = MutableLiveData<List<UserDetailsModel>?>()
+    var userDetailsLocalLiveData: LiveData<List<UserDetailsModel>?> = userDetailsLocalModel
+
+    private val userDetailsModelCount = MutableLiveData<Long?>()
+    var userDetailsLiveDataCount: LiveData<Long?> = userDetailsModelCount
+
     fun fetchUserDetails() = viewModelScope.launch {
 
         try {
@@ -39,11 +45,18 @@ class MainActivityViewModel @Inject constructor(
 
     fun insertDetails(list: List<UserDetailsModel>) = viewModelScope.launch {
         localRepository.insertAll(list)
+        getAllData()
     }
 
     fun getAllData() = viewModelScope.launch {
         val response = localRepository.getAllData()
+        userDetailsLocalModel.postValue(response)
         Log.e("insert result", "<<<<<<< ${response.size} >>>>>>>")
+    }
+
+    fun getAllDataCount() = viewModelScope.launch {
+        val response = localRepository.getAllDataCount()
+        userDetailsModelCount.postValue(response)
     }
 
 }
