@@ -6,3 +6,8 @@ val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
+
+
+//black theme colors
+val blackThemeColorPrimary = Color(0xFF3A4045)
+val blackThemeColorPrimaryVariant = Color(0xFF84888B)
