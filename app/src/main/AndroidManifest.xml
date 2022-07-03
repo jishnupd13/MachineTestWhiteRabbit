@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.spell.machinetestwr">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".application.WRApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,10 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MachineTestWR"
-        tools:targetApi="31"
-        android:name=".application.WRApplication"
         android:usesCleartextTraffic="true"
-        >
+        tools:targetApi="31">
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
@@ -29,6 +28,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.profiledetails.ProfileDetailsActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

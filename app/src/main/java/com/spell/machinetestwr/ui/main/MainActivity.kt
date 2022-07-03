@@ -1,5 +1,6 @@
 package com.spell.machinetestwr.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -7,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,18 +37,17 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.spell.machinetestwr.R
 import com.spell.machinetestwr.remotemodels.UserDetailsModel
+import com.spell.machinetestwr.ui.profiledetails.ProfileDetailsActivity
 import com.spell.machinetestwr.ui.theme.BlackTheme
 import com.spell.machinetestwr.ui.theme.fonts
 import com.spell.machinetestwr.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainActivityViewModel by viewModels()
-
-    // private val userList = arrayListOf<UserDetailsModel>()
-
     private val userList = mutableStateListOf<UserDetailsModel>()
 
 
@@ -56,6 +58,7 @@ class MainActivity : ComponentActivity() {
                 ConstraintLayout(list = userList)
             }
         }
+
 
         observeUserDetails()
         observeCount()
@@ -100,7 +103,14 @@ fun ConstraintLayout(list: SnapshotStateList<UserDetailsModel>) {
         val (topBar, lazyColumn) = createRefs()
 
         TopAppBar(
-            title = { Text(text = "UserList") },
+            title = {
+                Text(
+                    text = "Profiles",
+                    fontFamily = fonts,
+                    fontWeight = FontWeight.Light,
+                    fontSize = 13.sp
+                )
+            },
             navigationIcon = null,
             modifier = Modifier
                 .constrainAs(topBar) {
@@ -136,11 +146,24 @@ fun ConstraintLayout(list: SnapshotStateList<UserDetailsModel>) {
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun UserItem(item: UserDetailsModel) {
-
+    val context = LocalContext.current
     androidx.constraintlayout.compose.ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 14.dp)
+            .clickable {
+
+                try {
+                    val intent = Intent(context, ProfileDetailsActivity::class.java)
+                    intent.putExtra("userDetails", item)
+                    context.startActivity(intent)
+                    (context as MainActivity).overridePendingTransition(0, 0)
+                } catch (e: Exception) {
+
+                }
+
+
+            }
     ) {
         val (image, textUserName, textEmail, textPhone, viewDivider) = createRefs()
 
@@ -153,7 +176,7 @@ fun UserItem(item: UserDetailsModel) {
             modifier = Modifier
                 .padding(start = 9.dp, top = 14.dp)
                 .constrainAs(image) {
-                  //  top.linkTo(parent.top)
+                    //  top.linkTo(parent.top)
                     start.linkTo(parent.start)
                     linkTo(top = parent.top, bottom = parent.bottom, bias = 0F)
                 }
@@ -232,3 +255,6 @@ fun MyCustomPlaceHolder(@DrawableRes resourceId: Int) {
             ), contentScale = ContentScale.FillBounds
     )
 }
+
+
+

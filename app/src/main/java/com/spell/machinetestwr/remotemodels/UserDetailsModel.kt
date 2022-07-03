@@ -1,14 +1,19 @@
 package com.spell.machinetestwr.remotemodels
 
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import androidx.versionedparcelable.ParcelField
 import com.google.gson.annotations.SerializedName
 import com.spell.machinetestwr.localdatabase.typeconverters.AddressConverter
 import com.spell.machinetestwr.localdatabase.typeconverters.CompanyConverter
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 @Entity(tableName = "userDetails")
 data class UserDetailsModel(
 
@@ -38,8 +43,9 @@ data class UserDetailsModel(
     var username: String? = "",
     @SerializedName("website")
     var website: String? = ""
-)
+):Parcelable
 
+@Parcelize
 data class Address(
     @SerializedName("city")
     var city: String? = "",
@@ -51,8 +57,9 @@ data class Address(
     var suite: String? = "",
     @SerializedName("zipcode")
     var zipcode: String? = ""
-)
+):Parcelable
 
+@Parcelize
 data class Company(
     @SerializedName("bs")
     var bs: String? = "",
@@ -60,11 +67,12 @@ data class Company(
     var catchPhrase: String? = "",
     @SerializedName("name")
     var name: String? = ""
-)
+):Parcelable
 
+@Parcelize
 data class Geo(
     @SerializedName("lat")
     var lat: String? = "",
     @SerializedName("lng")
     var lng: String? = ""
-)
+):Parcelable
