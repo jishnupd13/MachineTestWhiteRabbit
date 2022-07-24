@@ -36,12 +36,15 @@ import androidx.constraintlayout.compose.Dimension
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.spell.machinetestwr.R
+import com.spell.machinetestwr.Utils
+import com.spell.machinetestwr.application.WRApplication
 import com.spell.machinetestwr.remotemodels.UserDetailsModel
 import com.spell.machinetestwr.ui.profiledetails.ProfileDetailsActivity
 import com.spell.machinetestwr.ui.theme.BlackTheme
 import com.spell.machinetestwr.ui.theme.fonts
 import com.spell.machinetestwr.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.Util
 
 
 @AndroidEntryPoint
@@ -55,6 +58,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BlackTheme {
+
+              //  Log.e("provided strings 3002", Utils(context = LocalContext.current).getSharedPreference())
+              /*  if(WRApplication().provideContext()!=null){
+                    Log.e("provided strings 3002", Utils(context = WRApplication().provideContext()!!).getSharedPreference())
+                }*/
+
                 ConstraintLayout(list = userList)
             }
         }

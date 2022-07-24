@@ -1,6 +1,7 @@
 package com.spell.machinetestwr.ui.profiledetails
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -12,7 +13,10 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.spell.machinetestwr.Utils
+import com.spell.machinetestwr.application.WRApplication
 import com.spell.machinetestwr.remotemodels.UserDetailsModel
+import com.spell.machinetestwr.toNormal
 import com.spell.machinetestwr.ui.theme.BlackTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +31,8 @@ class ProfileDetailsActivity : ComponentActivity() {
         userDetailsModel = intent.getParcelableExtra("userDetails")
         setContent {
             BlackTheme {
+
+                    Log.e("provided strings 3002", "".toNormal())
                 RootLayout()
             }
         }
